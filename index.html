@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Link Generator</title>
+</head>
+
+<body>
+    <h1>Referral Link Generator</h1>
+    <form id="referralForm">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" required>
+        <br>
+        <label for="birthday">Your Birthday:</label>
+        <input type="date" id="birthday" required>
+        <br>
+        <button type="submit">Generate Referral Link</button>
+    </form>
+    <p id="referralLink"></p>
+
+    <script>
+        document.getElementById('referralForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const birthday = document.getElementById('birthday').value;
+            const referralLink = `https://play.google.com/store/apps/details?id=com.yourapp&referrer=name=${encodeURIComponent(name)}&birthday=${encodeURIComponent(birthday)}`;
+            document.getElementById('referralLink').innerText = `Your Referral Link: ${referralLink}`;
+        });
+    </script>
+</body>
+
+</html>
