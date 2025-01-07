@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="Sangathan Posters" />
+    <meta property="og:description" content="संगठन अप्प पर पायें अपने पसंदीदा संगठन/संघ के पोस्टर्स अपने फोटो के साथ, अभी डाउनलोड करें प्ले स्टोर से" />
+    <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/sangathan-posters.appspot.com/o/feature-graphic.png?alt=media&token=3bc4d8a8-5fc0-457e-a46b-ff7abcffd363" />
+    <meta property="og:url" content="https://play.google.com/store/apps/details?id=com.sangathan.poster" />
+    <meta property="og:type" content="apps" />
+    <title>Sangathan posters</title>
+    <!-- Firebase initialization (unchanged) -->
+    <script defer src="/__/firebase/10.13.2/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/10.13.2/firebase-performance-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script type="text/javascript">
+      window.onload = function() {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Prepare key-value pairs for the Play Store URL
+        const paramsArray = [];
+        urlParams.forEach((value, key) => {
+          paramsArray.push(${encodeURIComponent(key)}%3D${encodeURIComponent(value)});
+        });
+
+        // Generate the intent URL for the app
+        const communityId = urlParams.get('communityId');
+        const deeplinkUrl = sangathan://;
+
+        // Fallback to Play Store URL
+        const playStoreUrl = https://play.google.com/store/apps/details?id=com.sangathan.poster&referrer=${paramsArray.join('%26')};
+
+        // Create an iframe to handle the deep link without throttling
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = deeplinkUrl;
+        document.body.appendChild(iframe);
+
+        // Wait for a short duration to check if the app opened
+        setTimeout(() => {
+          // If the app hasn't opened, redirect to Play Store
+          window.location.href = playStoreUrl;
+        }, 1000); // Adjust this duration as needed
+      };
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

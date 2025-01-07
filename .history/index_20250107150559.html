@@ -21,34 +21,37 @@
     <script defer src="/__/firebase/10.13.2/firebase-performance-compat.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script type="text/javascript">
-        window.onload = function () {
-          // Get URL parameters
-          const urlParams = new URLSearchParams(window.location.search);
-  
-          // Prepare key-value pairs for the Play Store URL
-          const paramsArray = [];
-          urlParams.forEach((value, key) => {
-            if (['userid', 'name', 'dob'].includes(key)) {
-              paramsArray.push(`${encodeURIComponent(key)}%3D${encodeURIComponent(value)}`); // Encode only required keys
-            }
-          });
-  
-          // Fallback to Play Store URL
-          const playStoreUrl = `https://play.google.com/store/apps/details?id=com.campain.myvoterapp&referrer=${paramsArray.join('%26')}`; // Append params
-  
-          // Create an iframe to handle the deep link without throttling
-          const iframe = document.createElement('iframe');
-          iframe.style.display = 'none';
-          iframe.src = 'posterforb://'; // Updated deeplink scheme
-          document.body.appendChild(iframe);
-  
-          // Redirect to Play Store after timeout if app doesn't open
-          setTimeout(() => {
-            window.location.href = playStoreUrl;
-          }, 1000);
-        };
-      </script>
-    </head>
-    <body>
-    </body>
-  </html>
+      window.onload = function () {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Prepare key-value pairs for the Play Store URL
+        const paramsArray = [];
+        urlParams.forEach((value, key) => {
+          paramsArray.push(`${encodeURIComponent(key)}%3D${encodeURIComponent(value)}`); // Fixed string interpolation
+        });
+
+        // Generate the intent URL for the app
+        const communityId = urlParams.get('communityId');
+        const deeplinkUrl = 'sangathan://'; // Fixed deeplink scheme as a string
+
+        // Fallback to Play Store URL
+        const playStoreUrl = `https://play.google.com/store/apps/details?id=com.campain.myvoterapp&referrer=${paramsArray.join('%26')}`; // Fixed string template
+
+        // Create an iframe to handle the deep link without throttling
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = deeplinkUrl;
+        document.body.appendChild(iframe);
+
+        // Wait for a short duration to check if the app opened
+        setTimeout(() => {
+          // If the app hasn't opened, redirect to Play Store
+          window.location.href = playStoreUrl;
+        }, 1000); // Adjust this duration as needed
+      };
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
